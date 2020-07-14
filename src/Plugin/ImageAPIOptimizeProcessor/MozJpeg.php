@@ -20,7 +20,7 @@ class MozJpeg extends ImageAPIOptimizeProcessorBinaryBase {
    * {@inheritdoc}
    */
   protected function executableName() {
-    return 'mozjpeg';
+    return 'mozjpeg-cjpeg';
   }
 
   public function applyToImage($image_uri) {
