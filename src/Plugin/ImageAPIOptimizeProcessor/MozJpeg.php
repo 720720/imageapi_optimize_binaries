@@ -25,20 +25,19 @@ class MozJpeg extends ImageAPIOptimizeProcessorBinaryBase {
 
   public function applyToImage($image_uri) {
     if ($cmd = $this->getFullPathToBinary()) {
-      $dst = $this->sanitizeFilename($image_uri);
 
       if ($this->getMimeType($image_uri) == 'image/jpeg') {
-        $options = array(
-          '-optimize',
-        );
+        $options = array();
+
+        if ($this->configuration['progressive']) {
+          $options[] = '-progressive';
+        }
 
         if (is_numeric($this->configuration['quality'])) {
           $options[] = '-quality ' . escapeshellarg($this->configuration['quality']);
         }
 
-        if ($this->configuration['progressive']) {
-          $options[] = '-progressive';
-        }
+        $dst = $this->sanitizeFilename($image_uri);
 
         $arguments = array(
           $dst,
