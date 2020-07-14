@@ -58,7 +58,7 @@ class MozJpeg extends ImageAPIOptimizeProcessorBinaryBase {
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
       'progressive' => TRUE,
-      'quality' => 90,
+      'quality' => 75,
     ];
   }
 
