@@ -35,10 +35,11 @@ class GifSicle extends ImageAPIOptimizeProcessorBinaryBase {
 
         $arguments = array(
           $dst,
-          '-o ' . $dst,
         );
 
-        return $this->execShellCommand($cmd, $options, $arguments);
+        $option_string = implode(' ', $options);
+        $argument_string = implode(' ', array_map('escapeshellarg', $arguments));
+        return $this->saveCommandStdoutToFile(escapeshellarg($cmd) . ' ' . $option_string . ' ' . $argument_string, $dst);
       }
     }
 
@@ -60,11 +61,7 @@ class GifSicle extends ImageAPIOptimizeProcessorBinaryBase {
     $form['level'] = array(
       '#title' => $this->t('Optimization level'),
       '#type' => 'select',
-      '#options' => array(
-        1 => $this->t('Stores only the changed portion of each image. This is the default.'),
-        2 => $this->t('Also uses transparency to shrink the file further.'),
-        3 => $this->t('Try several optimization methods (usually slower, sometimes better results).'),
-      ),
+      '#options' => range(1, 3),
       '#default_value' => $this->configuration['level'],
     );
 
